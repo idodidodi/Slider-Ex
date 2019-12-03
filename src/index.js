@@ -1,45 +1,53 @@
 'use strict'
 
+// TODO - move winows checks and calcs to new func
+// call this function on window change
+// fix resizing bug
+
 function sliderCmp(minRange, maxRange, currentPos) {
+    const range = maxRange - minRange
+    var windowWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     let isDragged = false;
-    const leftMargin = 58;
+    const pivotLeftFactor = 58;
     const pivotEl = document.getElementById('pivot')
+    const pathEl = document.getElementById('slider-path')
+    const pathWidthStr = getComputedStyle(pathEl).width
+    const pathWidth = pathWidthStr.slice(0, pathWidthStr.indexOf('px'))
+    const margin = windowWidth - pathWidth
     setCurrentValue(currentPos)
     registerEventListeners()
 
     function registerEventListeners() {
-        const pathEl = document.getElementById('slider-path')
         pathEl.addEventListener('click', moveSlider)
         pathEl.addEventListener('mousedown', moveSlider)
-        // pathEl.addEventListener('mouseup', moveSlider)
     }
 
     function moveSlider(ev) {
-        console.log('should see you many times while dragging')
         const eventType = ev.type
-        if (ev.clientX > 30) {
+        const xPos = ev.clientX
+        if (isInsideSliderPath(xPos)) {
 
             switch (eventType) {
-                // case 'mouseup':
-                //     console.log('mouse up', ev.offsetY)
-                // return
                 case 'mousedown':
-                    pivotEl.style.left = ev.clientX - leftMargin;
+                    pivotEl.style.left = ev.clientX - pivotLeftFactor;
                     registerToDragSlider(pivotEl);
-                    console.log('should see you once while dragging')
                     return
                 default:
                     if (!isDragged) { UnRegisterToDragSlider() }
-                    pivotEl.style.left = ev.clientX - leftMargin
+                    setNewPosToPivot(ev)
             }
         }
-        // TODO add clientX < ....
     }
 
+    function isInsideSliderPath(xPos) {
+        return xPos > margin / 2 && xPos < (windowWidth - margin / 2) ? true : false
+    }
     function setNewPosToPivot(ev) {
         const xPos = ev.clientX
-        if (xPos > 36) {
-            pivotEl.style.left = xPos - leftMargin
+        if (isInsideSliderPath(xPos)) {
+            pivotEl.style.left = xPos - pivotLeftFactor
+            const value = (xPos - (margin / 2)) * range / pathWidth
+            setCurrentValue(value)
         }
     }
 
