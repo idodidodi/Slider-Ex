@@ -60,7 +60,7 @@ function sliderCmp(minRange, maxRange, currentPos) {
     }
 
     function setCurrentValue(value) {
-        document.getElementById('current-value').innerText = value
+        document.getElementById('current-value').innerText = Math.round(value)
     }
 }
 
