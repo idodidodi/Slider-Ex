@@ -20,7 +20,7 @@ function sliderCmp(minRange, maxRange, currentPos) {
 
     function registerEventListeners() {
         pathEl.addEventListener('click', moveSlider)
-        pathEl.addEventListener('mousedown', moveSlider)
+        pivotEl.addEventListener('mousedown', moveSlider)
         window.addEventListener('resize', onWindowResize)
         circle.addEventListener('mousedown', animateCircle)
     }
