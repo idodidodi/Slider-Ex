@@ -1,6 +1,30 @@
 * {
   box-sizing: border-box;
 }
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.form input {
+  width: 50px;
+}
+.form button {
+  width: 170px;
+  margin-top: 5px;
+}
+.form div {
+  margin: 3px;
+}
 .slider-container {
   background-color: white;
   height: 80px;
@@ -8,11 +32,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border: 1px solid black;
+  position: relative;
 }
 
 .slider-path {
@@ -40,7 +61,7 @@ svg {
 .label {
   position: absolute;
   margin-left: 5%;
-  left: 0;
   bottom: 5px;
+  align-self: baseline;
   font-size: 1em;
 }

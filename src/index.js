@@ -1,15 +1,20 @@
 'use strict'
 
-// add simple form to change cmp's input
 // refactor and add comments
 
-sliderCmp(30, 70, 58)
 
-function sliderCmp(minRange, maxRange, currentPos) {
+function initSlider() {
+    const formEl = document.getElementById('slider-form')
+    formEl.addEventListener('click', () => { event.preventDefault() })
+    const minRange = +document.getElementById('min-value').value
+    const maxRange = +document.getElementById('max-value').value
+    sliderCmp(minRange, maxRange)
+}
+function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
     const range = maxRange - minRange
-    const pivotAbsPos = 58;
-    const pivotEl = document.getElementById('pivot')
     const pathEl = document.getElementById('slider-path')
+    const pivotEl = document.getElementById('pivot')
+    const pivotAbsPos = 58;
     const circle = document.getElementById('circle')
     const leftTransitionProp = pivotEl.style.transition
     let currentValue = currentPos
