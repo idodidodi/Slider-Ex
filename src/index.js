@@ -81,13 +81,18 @@ function sliderCmp(minRange, maxRange, currentPos) {
     }
 
     function registerToDragSlider() {
-        pivotEl.addEventListener('mousemove', setNewPosToPivot)
+        pivotEl.addEventListener('mousemove', onDrag)
+    }
+
+    function onDrag(ev) {
+        pivotEl.style.transition = '' // Cancel CSS transition on drag
+        setNewPosToPivot(ev)
     }
 
     function UnRegisterFromDragSlider() {
-        pivotEl.removeEventListener('mousemove', setNewPosToPivot)
+        pivotEl.removeEventListener('mousemove', onDrag)
         circle.classList.remove('shape-circle')
-
+        pivotEl.style.transition = 'left 1s'
     }
 
     function setCurrentValue(value) {

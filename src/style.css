@@ -27,8 +27,8 @@
 
 svg {
   position: absolute;
-  transition: left 1s;
 }
+
 .circle {
   r: 15;
   transition: r 1s;
