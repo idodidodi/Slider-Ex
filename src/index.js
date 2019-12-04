@@ -60,7 +60,7 @@ function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
                 case 'mousedown':
                     animateCircle()
                     pivotEl.style.left = ev.clientX - pivotAbsPos;
-                    registerToDragSlider(pivotEl);
+                    registerToDragSlider();
                     return
                 default:
                     setNewPosToPivot(ev)
@@ -91,7 +91,7 @@ function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
         return (xPos - (getPathMargins() / 2)) * range / getPathWidth()
     }
     function registerToDragSlider() {
-        pivotEl.addEventListener('mousemove', onDrag)
+        window.addEventListener('mousemove', onDrag)
         window.addEventListener('mouseup', UnRegisterFromDragSlider)
     }
 
@@ -102,7 +102,7 @@ function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
 
     function UnRegisterFromDragSlider() {
         window.removeEventListener('mouseup', UnRegisterFromDragSlider)
-        pivotEl.removeEventListener('mousemove', onDrag)
+        window.removeEventListener('mousemove', onDrag)
         pivotEl.style.transition = leftTransitionProp // Re-add CSS transition on drag
     }
 
