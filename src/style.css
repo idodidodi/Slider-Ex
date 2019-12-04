@@ -18,6 +18,9 @@ section {
 .form input {
   width: 50px;
 }
+.form label {
+  width: 120px;
+}
 .form button {
   width: 170px;
   margin-top: 5px;

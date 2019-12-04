@@ -1,35 +1,34 @@
 'use strict'
 
-// refactor and add comments
-
-
-function initSlider() {
+function initSlider() { // Initiating the slier with minRange and maxRange
     const formEl = document.getElementById('slider-form')
     formEl.addEventListener('click', () => { event.preventDefault() })
     const minRange = +document.getElementById('min-value').value
     const maxRange = +document.getElementById('max-value').value
     sliderCmp(minRange, maxRange)
 }
+
+// Slider component start
 function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
     const range = maxRange - minRange
     const pathEl = document.getElementById('slider-path')
     const pivotEl = document.getElementById('pivot')
-    const pivotAbsPos = 58;
+    const pivotAbsPos = 58; // Absolute X position of the pivot (the slider handle)
     const circle = document.getElementById('circle')
-    const leftTransitionProp = pivotEl.style.transition
+    const leftTransitionProp = pivotEl.style.transition // The CSS inline style transition
     let currentValue = currentPos
 
-    setNewPosToPivot(null, currentValue)
+    setNewPosToPivot(null, currentValue) // Setting the pivot on pivot path
     registerEventListeners()
 
     function registerEventListeners() {
         pathEl.addEventListener('click', moveSlider)
-        pivotEl.addEventListener('mousedown', moveSlider)
+        pivotEl.addEventListener('mousedown', moveSlider) // Listener for dragging
         window.addEventListener('resize', onWindowResize)
         circle.addEventListener('mousedown', animateCircle)
     }
 
-    function animateCircle() {
+    function animateCircle() { // Changing the pivot size
         circle.classList.add('shape-circle')
         setTimeout(() => {
             circle.classList.remove('shape-circle')
@@ -40,7 +39,7 @@ function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
         setNewPosToPivot(null, currentValue)
     }
 
-    function getPathMargins() {
+    function getPathMargins() { // Calc the areas between ends of pivot path to client window
         return getWindowWidth() - getPathWidth()
     }
 
@@ -56,8 +55,7 @@ function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
     function moveSlider(ev) {
         const eventType = ev.type
         const xPos = ev.clientX
-        if (isInsideSliderPath(xPos)) {
-
+        if (isEventInsideSliderPath(xPos)) {
             switch (eventType) {
                 case 'mousedown':
                     animateCircle()
@@ -70,14 +68,14 @@ function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
         }
     }
 
-    function isInsideSliderPath(xPos) {
+    function isEventInsideSliderPath(xPos) {
         return xPos > getPathMargins() / 2 && xPos < (getWindowWidth() - getPathMargins() / 2) ? true : false
     }
     function setNewPosToPivot(ev, currentValue) {
         const xPos = ev
             ? ev.clientX
             : getXposFromSliderValue(currentValue)
-        if (isInsideSliderPath(xPos)) {
+        if (isEventInsideSliderPath(xPos)) {
             pivotEl.style.left = xPos - pivotAbsPos
             const value = ev
                 ? getSliderValueFromXpos(xPos)
@@ -108,7 +106,7 @@ function sliderCmp(minRange, maxRange, currentPos = (minRange + maxRange) / 2) {
         pivotEl.style.transition = leftTransitionProp // Re-add CSS transition on drag
     }
 
-    function setCurrentValue(value) {
+    function setCurrentValue(value) { // Render slider's value
         currentValue = Math.round(value) + minRange
         document.getElementById('current-value').innerText = currentValue
     }
