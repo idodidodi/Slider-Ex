@@ -16,25 +16,31 @@
 }
 
 .slider-path {
-  height: 10%;
+  height: 25%;
   background-color: #e0e0e0;
   width: 90%;
   display: flex;
   align-items: center;
   border-radius: 2%;
   cursor: pointer;
-  /* margin-top: 5%; */
-  /* margin-bottom: 5%; Padding is used to allow click on space larger than */
 }
 
 svg {
   position: absolute;
-  /* left: -15px; */
+  transition: left 1s;
 }
+.circle {
+  r: 15;
+  transition: r 1s;
+}
+.shape-circle {
+  r: 20;
+}
+
 .label {
   position: absolute;
   margin-left: 5%;
   left: 0;
-  bottom: 10px;
-  font-size: 0.8em;
+  bottom: 5px;
+  font-size: 1em;
 }
